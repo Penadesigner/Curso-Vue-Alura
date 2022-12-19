@@ -1,0 +1,51 @@
+npm i bulma 
+
+------------------------------------------------
+
+Router
+
+npm i vue-router@4
+
+Criar pasta routes > index.ts 
+
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import X from '../views/X.vue'
+
+const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/',
+    name: 'home',
+    component: X
+  }
+]
+
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes
+})
+
+export default router
+
+
+
+--------------------------------------------------------------------------------------
+
+Font Awesome 
+
+npm i @fortawesome/fontawesome-free
+
+No MAIN.JS
+
+import '@fontawesome/fontawesome-free/css/all.css'
+
+
+----------------------------------------------------------------------------------------
+HTTP SERVER
+
+npm i -g http-server
+
+http-server dentro da pasta dist
+
+---------------------------------------------------------------------------------------
+
+Router
