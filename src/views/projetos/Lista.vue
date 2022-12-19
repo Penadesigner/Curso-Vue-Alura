@@ -6,7 +6,7 @@
         <i class="fas fa-tasks">
         </i>
       </span>
-      <span>Novo Projeto</span>
+      <span>Novo Projetinho</span>
       </router-link>
 
       <table class="table is-fullwidth">
