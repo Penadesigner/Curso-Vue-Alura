@@ -46,6 +46,8 @@ main {
   --botao-ativar-texto: black;
   --input-fundo:  #e3d1d1;
   --botao-ativar-fundo: #e3d1d1;
+  --texto-projeto: #c9bfbf;
+  --fundo-input: white;
 }
 main.modo-escuro {
   --bg-primario: #000;
@@ -53,6 +55,8 @@ main.modo-escuro {
   --input-fundo:  rgb(118, 165, 235);
   --botao-ativar-texto: #fff !important;
   --botao-ativar-fundo: rgb(118, 165, 235);
+  --texto-projeto: #5e8ba5;
+  --fundo-input: black;
 }
 .conteudo {
   background-color: var(--bg-primario);

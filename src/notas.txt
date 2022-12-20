@@ -1,3 +1,10 @@
+Preciso criar o alerta de projeto excluido.
+Preciso corrigir as cores do modo escuro
+
+------------------------------------------------
+
+Bulma CSS
+
 npm i bulma 
 
 ------------------------------------------------

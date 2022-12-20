@@ -1,10 +1,13 @@
 <template>
     <Box>
         <div class="columns">
-            <div class="column is-7 descricao">
+            <div class="column is-4 descricao">
                 {{tarefa.descricao  || 'sem descricao'}}
             </div>
-            <div class="column is-5">
+            <div class="column is-4 nome-projeto">
+                {{tarefa.projeto?.nome  || 'sem descricao'}}
+            </div>
+            <div class="column">
                 <Cronometro :TempoemSegundos="tarefa.duracaoEmSegundos"/>
             </div> 
         </div>
@@ -33,6 +36,10 @@ export default defineComponent({
 
 <style scoped>
 .descricao {
+    color: var(--texto-primario)
+}
+.nome-projeto{
+    background: var(--texto-projeto) !important;
     color: var(--texto-primario)
 }
 </style>

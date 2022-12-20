@@ -1,20 +1,20 @@
 <template>
   <div>
     <section>
-      <router-link to="/projetos/novo" class="button is-primary">
+      <router-link to="/projetos/novo" class="button verde-btn">
       <span class="icon is-small">
         <i class="fas fa-tasks">
         </i>
       </span>
-      <span>Novo Projetinho</span>
+      <span>Novo Projeto</span>
       </router-link>
 
-      <table class="table is-fullwidth">
+      <table class="table is-fullwidth tabela-projetos">
         <thead>
           <tr>
             <td>ID</td>
             <td>Nome</td>
-            <th>Ações</th>
+            <td>Ações</td>
           </tr>
         </thead>
         <tbody v-for="projeto in projetos" :key="projeto.id">
@@ -22,7 +22,7 @@
             <td>{{ projeto.id }}</td>
             <td>{{ projeto.nome }}</td>
             <td>
-                <router-link :to="`/projetos/${projeto.id}`" class="button is-link">
+                <router-link :to="`/projetos/${projeto.id}`" class="button verde-btn">
                   <span class="icon is-small">
                     <i class="fas fa-pencil-alt">
                     </i>
@@ -64,6 +64,29 @@ export default defineComponent({
   })
 </script>
 
-<style scoped>
+<style>
+.tabela-projetos, .tabela-projetos thead, .tabela-projetos tbody, .tabela-projetos thead td, .tabela-projetos tbody td{
+  color: var(--texto-primario) !important;
+  background: var(--botao-ativar-fundo) !important;
+  font-weight: 700;
+}
+
+.tabela-projetos {
+  margin-top: 2em;
+}
+
+.verde-btn {
+  background: #3d7e42 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.projetos h1, .projetos label, .projetos input {
+  color: var(--texto-primario) !important;
+}
+
+.projetos input {
+  background: var(--fundo-input);
+}
 
 </style>

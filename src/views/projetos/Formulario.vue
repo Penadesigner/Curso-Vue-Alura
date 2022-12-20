@@ -9,7 +9,7 @@
           <input type="text" class="input" v-model="nomeDoProjeto" id="nomeDoProjet">
         </div>
         <div class="field">
-          <button class="button" type="submit">
+          <button class="button verde-btn" type="submit">
             Salvar
           </button>         
         </div>
@@ -23,6 +23,9 @@
 import { defineComponent } from 'vue'
 import { useStore } from '@/store'
 import { ALTERA_PROJETO, ADICIONA_PROJETO } from '@/store/mutations'
+import { TipoNotificacao } from '@/interfaces/INotificacao'
+import { notificacaoMixin } from '@/mixins/notificar'
+
 export default defineComponent({
   name: 'Formulario',
   props: {
@@ -30,6 +33,7 @@ export default defineComponent({
       type: String
     }
   },
+  mixins: [notificacaoMixin],
   data(){
     return {
       nomeDoProjeto: '',
@@ -52,10 +56,12 @@ export default defineComponent({
       if(this.id){
         this.store.commit(ALTERA_PROJETO, {
           id: this.id,
-          nome: this.nomeDoProjeto
+          nome: this.nomeDoProjeto,
         })
+        this.notificar(TipoNotificacao.ATENCAO, "Alterado", 'Projeto Alterado')
       } else {
         this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto)
+        this.notificar(TipoNotificacao.SUCESSO, "Excelente", 'Projeto cadastrado')
       }
       this.nomeDoProjeto = ''
       this.$router.push('/projetos')

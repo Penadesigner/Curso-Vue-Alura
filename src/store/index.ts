@@ -15,23 +15,7 @@ export const store = createStore<Estado>({
   state: {
     projetos: [],
     notificacoes: [
-      {
-        id: 1,
-        texto: 'Concluido com sucesso',
-        titulo: 'Sucesso',
-        tipo: TipoNotificacao.SUCESSO
-      },      {
-        id: 2,
-        texto: 'tivemos problemas',
-        titulo: 'Atencao',
-        tipo: TipoNotificacao.ATENCAO
-      },
-      {
-        id: 3,
-        texto: 'Erro ao tentar concluir',
-        titulo: 'Erro',
-        tipo: TipoNotificacao.FALHA
-      }
+      
     ]
   },
   getters: {
@@ -52,8 +36,12 @@ export const store = createStore<Estado>({
     [EXCLUIR_PROJETO](state, id: String) {
       state.projetos = state.projetos.filter(p => p.id != id)
     },
-    [NOTIFICAR](){
-      
+    [NOTIFICAR](state, novaNotificacao: INotificacao){
+      novaNotificacao.id = new Date().getTime()
+      state.notificacoes.push(novaNotificacao)
+      setTimeout(() => {
+        state.notificacoes = state.notificacoes.filter(n => n.id != novaNotificacao.id)
+      }, 4000);
     }
   },
   actions: {
