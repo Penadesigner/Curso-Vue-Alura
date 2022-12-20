@@ -49,6 +49,7 @@ import { useStore } from '@/store'
 import { EXCLUIR_PROJETO } from '@/store/mutations'
 import { notificacaoMixin } from '@/mixins/notificar'
 import { TipoNotificacao } from '@/interfaces/INotificacao'
+import { OBTER_PROJETOS } from '@/store/acoes'
 
 export default defineComponent({
   name: 'Lista',
@@ -61,6 +62,7 @@ export default defineComponent({
   mixins: [notificacaoMixin],
   setup(){
     const store = useStore()
+    store.dispatch(OBTER_PROJETOS)
     return {
       projetos: computed(() => store.state.projetos),
       store

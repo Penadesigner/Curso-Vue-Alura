@@ -22,9 +22,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useStore } from '@/store'
-import { ALTERA_PROJETO, ADICIONA_PROJETO } from '@/store/mutations'
+import { ALTERA_PROJETO } from '@/store/mutations'
 import { TipoNotificacao } from '@/interfaces/INotificacao'
 import { notificacaoMixin } from '@/mixins/notificar'
+import { CADASTRAR_PROJETOS } from '@/store/acoes'
 
 export default defineComponent({
   name: 'Formulario',
@@ -60,7 +61,7 @@ export default defineComponent({
         })
         this.notificar(TipoNotificacao.ATENCAO, "Alterado", 'Projeto Alterado')
       } else {
-        this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto)
+        this.store.dispatch(CADASTRAR_PROJETOS, this.nomeDoProjeto)
         this.notificar(TipoNotificacao.SUCESSO, "Excelente", 'Projeto cadastrado')
       }
       this.nomeDoProjeto = ''
