@@ -47,13 +47,18 @@
 import { computed, defineComponent } from 'vue'
 import { useStore } from '@/store'
 import { EXCLUIR_PROJETO } from '@/store/mutations'
+import { notificacaoMixin } from '@/mixins/notificar'
+import { TipoNotificacao } from '@/interfaces/INotificacao'
+
 export default defineComponent({
   name: 'Lista',
   methods: {
     excluir(id: String){
         this.store.commit(EXCLUIR_PROJETO, id)
+        this.notificar(TipoNotificacao.FALHA, "Deletado", 'Projeto Excluido')
     }
   },
+  mixins: [notificacaoMixin],
   setup(){
     const store = useStore()
     return {
