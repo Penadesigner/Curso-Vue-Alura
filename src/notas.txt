@@ -60,4 +60,36 @@ http-server dentro da pasta dist
 
 ---------------------------------------------------------------------------------------
 
-Router
+Vuex
+
+npm i vuex@next
+
+STEP 1 -
+
+Criar Pasta STORE/index.ts
+
+import { InjectionKey } from 'vue'
+import { createStore, Store, useStore as vuexUseStore } from 'vuex'
+
+export const key: InjectionKey<Store<Estado>> = Symbol()
+
+export const store = createStore<Estado>({
+  state: {
+  },
+  getters: {
+  },
+  mutations: {
+  },
+  actions: {
+  },
+  modules: {
+  }
+})
+
+export function useStore(): Store<Estado> {
+  return vuexUseStore(key)
+}
+
+
+STEP 2 -
+

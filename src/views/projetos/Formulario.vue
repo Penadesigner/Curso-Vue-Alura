@@ -1,6 +1,7 @@
 <template>
   <div>
     <section>
+      <!-- Ouve o evento de submit, com o comportamento padrao de recarregar a pagina -->
       <form @submit.prevent="salvar">
         <div class="field">
           <label for="nomeDoProjeto" class="label">
@@ -41,12 +42,15 @@ export default defineComponent({
     }
   },
   setup(){
+    // iMPORT DA STORE, USANDO A CHAVE KEY
     const store = useStore()
     return {
       store
     }
   },
   mounted(){
+    // Verifica se foi passado um id, caso sim, ele busca um projeto com este id, 
+    // e substitui o nome do projeto com o nome que foi passado no Input nomeDoProjeto
     if(this.id){
       const projeto = this.store.state.projetos.find(p => p.id == this.id)
       this.nomeDoProjeto = `${projeto?.nome}` || ''
@@ -55,6 +59,7 @@ export default defineComponent({
   methods: {
     salvar(){
       if(this.id){
+        // Chama a mutation ALTERA_PROJETO atraves do commit e passa um projeto = IProjeto
         this.store.commit(ALTERA_PROJETO, {
           id: this.id,
           nome: this.nomeDoProjeto,
