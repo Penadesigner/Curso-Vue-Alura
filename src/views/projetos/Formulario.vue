@@ -23,10 +23,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useStore } from '@/store'
-import { ALTERA_PROJETO } from '@/store/mutations'
 import { TipoNotificacao } from '@/interfaces/INotificacao'
 import { notificacaoMixin } from '@/mixins/notificar'
-import { CADASTRAR_PROJETOS } from '@/store/acoes'
+import { ALTERAR_PROJETOS, CADASTRAR_PROJETOS } from '@/store/acoes'
 
 export default defineComponent({
   name: 'Formulario',
@@ -52,7 +51,7 @@ export default defineComponent({
     // Verifica se foi passado um id, caso sim, ele busca um projeto com este id, 
     // e substitui o nome do projeto com o nome que foi passado no Input nomeDoProjeto
     if(this.id){
-      const projeto = this.store.state.projetos.find(p => p.id == this.id)
+      const projeto = this.store.state.projeto.projetos.find(p => p.id == this.id)
       this.nomeDoProjeto = `${projeto?.nome}` || ''
     }
   },
@@ -60,14 +59,16 @@ export default defineComponent({
     salvar(){
       if(this.id){
         // Chama a mutation ALTERA_PROJETO atraves do commit e passa um projeto = IProjeto
-        this.store.commit(ALTERA_PROJETO, {
+        this.store.dispatch(ALTERAR_PROJETOS, {
           id: this.id,
           nome: this.nomeDoProjeto,
-        })
-        this.notificar(TipoNotificacao.ATENCAO, "Alterado", 'Projeto Alterado')
+        }).then(() => {
+          this.notificar(TipoNotificacao.ATENCAO, "Alterado", 'Projeto Alterado')
+        }) 
       } else {
-        this.store.dispatch(CADASTRAR_PROJETOS, this.nomeDoProjeto)
-        this.notificar(TipoNotificacao.SUCESSO, "Excelente", 'Projeto cadastrado')
+        this.store.dispatch(CADASTRAR_PROJETOS, this.nomeDoProjeto).then(() => {
+          this.notificar(TipoNotificacao.SUCESSO, "Excelente", 'Projeto cadastrado')
+        })
       }
       this.nomeDoProjeto = ''
       this.$router.push('/projetos')

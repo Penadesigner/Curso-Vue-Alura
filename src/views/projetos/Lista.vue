@@ -46,16 +46,15 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useStore } from '@/store'
-import { EXCLUIR_PROJETO } from '@/store/mutations'
 import { notificacaoMixin } from '@/mixins/notificar'
 import { TipoNotificacao } from '@/interfaces/INotificacao'
-import { OBTER_PROJETOS } from '@/store/acoes'
+import { OBTER_PROJETOS, REMOVER_PROJETOS } from '@/store/acoes'
 
 export default defineComponent({
   name: 'Lista',
   methods: {
     excluir(id: String){
-        this.store.commit(EXCLUIR_PROJETO, id)
+        this.store.dispatch(REMOVER_PROJETOS, id)
         this.notificar(TipoNotificacao.FALHA, "Deletado", 'Projeto Excluido')
     }
   },
@@ -64,7 +63,7 @@ export default defineComponent({
     const store = useStore()
     store.dispatch(OBTER_PROJETOS)
     return {
-      projetos: computed(() => store.state.projetos),
+      projetos: computed(() => store.state.projeto.projetos),
       store
     }
   },

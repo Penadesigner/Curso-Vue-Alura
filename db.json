@@ -1,12 +1,36 @@
 {
   "projetos": [
     {
-      "id": 1,
-      "nome": "Alura tracker 1"
+      "id": 2,
+      "nome": "Vue 3"
     },
     {
-      "id": 2,
-      "nome": "Alura Vue"
+      "nome": "React",
+      "id": 5
+    },
+    {
+      "nome": "Angular",
+      "id": 6
+    }
+  ],
+  "tarefas": [
+    {
+      "id": 1,
+      "duracaoEmSegundos": 120,
+      "descricao": "Configurando o inicio do projeto",
+      "projeto": {
+        "nome": "React",
+        "id": 5
+      }
+    },
+    {
+      "duracaoEmSegundos": 3,
+      "descricao": "Teste 2",
+      "projeto": {
+        "id": 2,
+        "nome": "Vue 3"
+      },
+      "id": 2
     }
   ]
 }
