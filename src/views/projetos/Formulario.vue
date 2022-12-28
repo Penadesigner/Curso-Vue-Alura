@@ -21,11 +21,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useStore } from '@/store'
 import { TipoNotificacao } from '@/interfaces/INotificacao'
 import { notificacaoMixin } from '@/mixins/notificar'
 import { ALTERAR_PROJETOS, CADASTRAR_PROJETOS } from '@/store/acoes'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'Formulario',
@@ -35,43 +36,41 @@ export default defineComponent({
     }
   },
   mixins: [notificacaoMixin],
-  data(){
-    return {
-      nomeDoProjeto: '',
-    }
-  },
-  setup(){
-    // iMPORT DA STORE, USANDO A CHAVE KEY
-    const store = useStore()
-    return {
-      store
-    }
-  },
-  mounted(){
-    // Verifica se foi passado um id, caso sim, ele busca um projeto com este id, 
-    // e substitui o nome do projeto com o nome que foi passado no Input nomeDoProjeto
-    if(this.id){
-      const projeto = this.store.state.projeto.projetos.find(p => p.id == this.id)
-      this.nomeDoProjeto = `${projeto?.nome}` || ''
-    }
-  },
   methods: {
-    salvar(){
-      if(this.id){
+    
+  },
+  setup(props){
+    const store = useStore()
+    const router = useRouter()
+    const nomeDoProjeto = ref("")
+
+    // Faz com que o nome do projeto, venha na hora da edição, para ser alterado.
+    if(props.id){
+      const projeto = store.state.projeto.projetos.find(p => p.id == props.id)
+      nomeDoProjeto.value = `${projeto?.nome}` || ''
+    }
+
+    const salvar = () => {
+      if(props.id){
         // Chama a mutation ALTERA_PROJETO atraves do commit e passa um projeto = IProjeto
-        this.store.dispatch(ALTERAR_PROJETOS, {
-          id: this.id,
-          nome: this.nomeDoProjeto,
+        store.dispatch(ALTERAR_PROJETOS, {
+          id: props.id,
+          nome: nomeDoProjeto.value,
         }).then(() => {
-          this.notificar(TipoNotificacao.ATENCAO, "Alterado", 'Projeto Alterado')
+          //this.notificar(TipoNotificacao.ATENCAO, "Alterado", 'Projeto Alterado')
         }) 
       } else {
-        this.store.dispatch(CADASTRAR_PROJETOS, this.nomeDoProjeto).then(() => {
-          this.notificar(TipoNotificacao.SUCESSO, "Excelente", 'Projeto cadastrado')
+        store.dispatch(CADASTRAR_PROJETOS, nomeDoProjeto.value).then(() => {
+          //this.notificar(TipoNotificacao.SUCESSO, "Excelente", 'Projeto cadastrado')
         })
       }
-      this.nomeDoProjeto = ''
-      this.$router.push('/projetos')
+      nomeDoProjeto.value = ''
+      router.push('/projetos')
+    }
+
+    return {
+      nomeDoProjeto,
+      salvar
     }
   }
   })

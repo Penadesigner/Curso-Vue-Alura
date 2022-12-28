@@ -53,12 +53,15 @@ export const store = createStore<Estado>({
     // Quando receber a requisicao eu quero alterar o estado
 
     // TAREFAS //
-    [OBTER_TAREFAS] ({ commit }) {
-      Http.get("tarefas")
+    [OBTER_TAREFAS] ({ commit }, filtro: String) {
+      let url = 'tarefas'
+      if(filtro){
+        // url adiciona 'algo' + filtro recebido 
+        url += '?descricao=' + filtro
+      }
+      Http.get(url)
       .then(res =>
         commit(DEFINIR_TAREFA, res.data))
-      .catch(err => 
-        console.log(err))
     },
 
     [CADASTRAR_TAREFA] ( {commit}, tarefa: ITarefa ) {

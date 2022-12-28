@@ -24,37 +24,37 @@
 <script lang="ts">
 /* eslint-disable */
 import { key } from '@/store'
-import { computed, defineComponent } from 'vue'   
+import { computed, defineComponent, ref } from 'vue'   
 import { useStore } from 'vuex'
 import Temporizador from './Temporizador.vue'
 export default defineComponent({
     components: { Temporizador },
     name: 'Formulario',
     emits: ['aoSalvarTarefa'],
-    data(){
-        return {
-            descricao: '',
-            idProjeto: ''
-        }
-    },
-    setup(){
+    setup(props, {emit}){
         const store = useStore(key)
-        return {
-            projetos: computed (() => store.state.projeto.projetos)
-        }
-    },
-    methods: {
+        const descricao = ref("")
+        const idProjeto = ref("")
+        const projetos = computed (() => store.state.projeto.projetos)
+
         // Monta a tarefa com a Descrição o tempo decorido recebido do temporizador via Emit    
-        finalizarTarefa(TempoemSegundosDecorido: number) : void {
+        const finalizarTarefa = (TempoemSegundosDecorido: number) : void => {
             // Emite o tempo decorido que recebeu do temporizador via Emit e a descrição do input do formulario
-            this.$emit('aoSalvarTarefa',{
+            emit('aoSalvarTarefa',{
                 duracaoEmSegundos: TempoemSegundosDecorido,
-                descricao: this.descricao,
-                projeto: this.projetos.find(p => p.id == this.idProjeto)
+                descricao: descricao.value,
+                projeto: projetos.value.find(p => p.id == idProjeto.value)
             })
             // Limpa o campo descrição
-            this.descricao = ''
+            descricao.value = ''
             
+        }
+
+        return {
+            descricao,
+            idProjeto,
+            projetos,
+            finalizarTarefa
         }
     }
 })

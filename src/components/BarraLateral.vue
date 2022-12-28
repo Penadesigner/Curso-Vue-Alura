@@ -58,6 +58,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
 img {
   margin-bottom: 1em;
 }
@@ -69,7 +70,8 @@ button {
 header {
   padding: 1rem;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%; 
   text-align: center;
 }
 .header-blue {
